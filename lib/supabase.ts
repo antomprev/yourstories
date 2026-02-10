@@ -1,5 +1,6 @@
 import 'react-native-url-polyfill/auto';
 import { createClient } from '@supabase/supabase-js';
+import { Platform } from 'react-native';
 
 // Get environment variables
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
@@ -10,12 +11,13 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase configuration. Please check your environment variables.');
 }
 
-// Create Supabase client
+// Create Supabase client with platform-specific configuration
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
-    persistSession: false,
+    storage: Platform.OS === 'web' ? (typeof window !== 'undefined' ? window.localStorage : undefined) : undefined,
     autoRefreshToken: true,
-    detectSessionInUrl: false
+    persistSession: true,
+    detectSessionInUrl: Platform.OS === 'web'
   }
 });
 
