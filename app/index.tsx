@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, ImageBackground } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LogIn } from 'lucide-react-native';
@@ -6,9 +6,15 @@ import { LogIn } from 'lucide-react-native';
 export default function HomeScreen() {
   const router = useRouter();
 
+  // Memoize image URL to prevent unnecessary re-renders and network requests
+  const imageUrl = useMemo(() => 
+    'https://images.unsplash.com/photo-1519791883288-dc8bd696e667?q=80&w=1080&auto=format&fit=crop',
+    []
+  );
+
   return (
     <ImageBackground
-      source={{ uri: 'https://images.unsplash.com/photo-1519791883288-dc8bd696e667?q=80&w=3540&auto=format&fit=crop' }}
+      source={{ uri: imageUrl }}
       style={styles.backgroundImage}
       resizeMode="cover"
     >
