@@ -1,17 +1,14 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, ImageBackground } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LogIn } from 'lucide-react-native';
+import CachedBackground, { BACKGROUND_IMAGES } from '@/components/CachedBackground';
 
 export default function HomeScreen() {
   const router = useRouter();
 
   return (
-    <ImageBackground
-      source={{ uri: 'https://images.unsplash.com/photo-1519791883288-dc8bd696e667?q=80&w=3540&auto=format&fit=crop' }}
-      style={styles.backgroundImage}
-      resizeMode="cover"
-    >
+    <CachedBackground uri={BACKGROUND_IMAGES.main} style={styles.backgroundImage}>
       <View style={styles.overlay}>
         <View style={styles.content}>
           <Text style={styles.title}>yourstories.app</Text>
@@ -24,7 +21,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
       </View>
-    </ImageBackground>
+    </CachedBackground>
   );
 }
 

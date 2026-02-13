@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity, Platform, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronRight, Trash2, RefreshCcw, Clock } from 'lucide-react-native';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'expo-router';
+import CachedBackground, { BACKGROUND_IMAGES } from '@/components/CachedBackground';
 
 interface Story {
   story_id: string;
@@ -162,24 +163,18 @@ export default function History() {
 
   if (loading) {
     return (
-      <ImageBackground
-        source={{ uri: 'https://images.unsplash.com/photo-1519791883288-dc8bd696e667?q=80&w=3540&auto=format&fit=crop' }}
-        style={styles.backgroundImage}
-      >
+      <CachedBackground uri={BACKGROUND_IMAGES.main} style={styles.backgroundImage}>
         <View style={styles.overlay}>
           <View style={styles.centerContainer}>
             <ActivityIndicator size="large" color="#ffffff" />
           </View>
         </View>
-      </ImageBackground>
+      </CachedBackground>
     );
   }
 
   return (
-    <ImageBackground
-      source={{ uri: 'https://images.unsplash.com/photo-1519791883288-dc8bd696e667?q=80&w=3540&auto=format&fit=crop' }}
-      style={styles.backgroundImage}
-    >
+    <CachedBackground uri={BACKGROUND_IMAGES.main} style={styles.backgroundImage}>
       <View style={styles.overlay}>
         <SafeAreaView style={styles.container}>
           <View style={styles.header}>
@@ -222,7 +217,7 @@ export default function History() {
           )}
         </SafeAreaView>
       </View>
-    </ImageBackground>
+    </CachedBackground>
   );
 }
 

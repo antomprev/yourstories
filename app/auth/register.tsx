@@ -6,12 +6,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-  ImageBackground,
 } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { supabase } from '@/lib/supabase';
 import { Mail, Lock, User } from 'lucide-react-native';
+import CachedBackground, { BACKGROUND_IMAGES } from '@/components/CachedBackground';
 
 export default function Register() {
   const [username, setUsername] = useState('');
@@ -66,11 +66,7 @@ export default function Register() {
   };
 
   return (
-    <ImageBackground
-      source={{ uri: 'https://images.unsplash.com/photo-1519791883288-dc8bd696e667?q=80&w=3540&auto=format&fit=crop' }}
-      style={styles.backgroundImage}
-      resizeMode="cover"
-    >
+    <CachedBackground uri={BACKGROUND_IMAGES.main} style={styles.backgroundImage}>
       <View style={styles.overlay}>
         <SafeAreaView style={styles.container}>
           <View style={styles.content}>
@@ -157,7 +153,7 @@ export default function Register() {
           </View>
         </SafeAreaView>
       </View>
-    </ImageBackground>
+    </CachedBackground>
   );
 }
 

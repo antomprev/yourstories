@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
   Platform,
   TextInput,
   ScrollView,
@@ -13,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronRight, Shield, FileText, Info, LogOut } from 'lucide-react-native';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'expo-router';
+import CachedBackground, { BACKGROUND_IMAGES } from '@/components/CachedBackground';
 
 export default function Settings() {
   const [error, setError] = React.useState<string | null>(null);
@@ -96,10 +96,7 @@ export default function Settings() {
   };
 
   return (
-    <ImageBackground
-      source={{ uri: 'https://images.unsplash.com/photo-1519791883288-dc8bd696e667?q=80&w=3540&auto=format&fit=crop' }}
-      style={styles.backgroundImage}
-    >
+    <CachedBackground uri={BACKGROUND_IMAGES.main} style={styles.backgroundImage}>
       <View style={styles.overlay}>
         <SafeAreaView style={styles.container}>
           <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent}>
@@ -260,7 +257,7 @@ export default function Settings() {
           </ScrollView>
         </SafeAreaView>
       </View>
-    </ImageBackground>
+    </CachedBackground>
   );
 }
 

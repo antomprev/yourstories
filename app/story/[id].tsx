@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity, Platform, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity, Platform } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { supabase } from '@/lib/supabase';
 import { textToSpeech } from '@/lib/openai';
 import { ArrowLeft, Play, Pause, Square } from 'lucide-react-native';
+import CachedBackground, { BACKGROUND_IMAGES } from '@/components/CachedBackground';
+import { Image } from 'expo-image';
 
 interface Story {
   story_id: string;
@@ -148,11 +150,7 @@ export default function StoryDetail() {
   }
 
   return (
-    <ImageBackground
-      source={{ uri: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=3540&auto=format&fit=crop' }}
-      style={styles.backgroundImage}
-      resizeMode="cover"
-    >
+    <CachedBackground uri={BACKGROUND_IMAGES.story} style={styles.backgroundImage}>
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <View style={styles.headerTop}>
@@ -221,10 +219,12 @@ export default function StoryDetail() {
           <View style={styles.content}>
             {story.icon_url && (
               <View style={styles.iconContainer}>
-                <ImageBackground
+                <Image
                   source={{ uri: story.icon_url }}
-                  style={styles.storyIcon}
-                  imageStyle={styles.storyIconImage}
+                  style={[styles.storyIcon, styles.storyIconImage]}
+                  contentFit="cover"
+                  cachePolicy="disk"
+                  transition={200}
                 />
               </View>
             )}
@@ -232,7 +232,7 @@ export default function StoryDetail() {
           </View>
         </ScrollView>
       </SafeAreaView>
-    </ImageBackground>
+    </CachedBackground>
   );
 }
 

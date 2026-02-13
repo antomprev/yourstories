@@ -8,7 +8,6 @@ import {
   ScrollView,
   ActivityIndicator,
   Platform,
-  ImageBackground,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Wand as Wand2, LogIn, ChevronDown } from 'lucide-react-native';
@@ -16,6 +15,7 @@ import { generateStory, type StoryDuration } from '@/lib/openai';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'expo-router';
 import { Picker } from '@react-native-picker/picker';
+import CachedBackground, { BACKGROUND_IMAGES } from '@/components/CachedBackground';
 
 const THEMES = [
   'Adventure & Exploration',
@@ -272,11 +272,7 @@ export default function CreateStory() {
 
   if (!user) {
     return (
-      <ImageBackground
-        source={{ uri: 'https://images.unsplash.com/photo-1519791883288-dc8bd696e667?q=80&w=3540&auto=format&fit=crop&h=95p' }}
-        style={styles.backgroundImage}
-        resizeMode="cover"
-      >
+      <CachedBackground uri={BACKGROUND_IMAGES.main} style={styles.backgroundImage}>
         <View style={styles.overlay}>
           <SafeAreaView style={[styles.container, styles.elevatedContainer]}>
             <View style={styles.header}>
@@ -294,16 +290,12 @@ export default function CreateStory() {
             </View>
           </SafeAreaView>
         </View>
-      </ImageBackground>
+      </CachedBackground>
     );
   }
 
   return (
-    <ImageBackground
-      source={{ uri: 'https://images.unsplash.com/photo-1519791883288-dc8bd696e667?q=80&w=3540&auto=format&fit=crop&h=95p' }}
-      style={styles.backgroundImage}
-      resizeMode="cover"
-    >
+    <CachedBackground uri={BACKGROUND_IMAGES.main} style={styles.backgroundImage}>
       <View style={styles.overlay}>
         <SafeAreaView style={[styles.container, styles.elevatedContainer]}>
           <ScrollView style={styles.scrollView}>
@@ -540,7 +532,7 @@ export default function CreateStory() {
           )}
         </SafeAreaView>
       </View>
-    </ImageBackground>
+    </CachedBackground>
   );
 }
 
